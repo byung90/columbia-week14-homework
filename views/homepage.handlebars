@@ -1,0 +1,69 @@
+<div class="container home-feed">
+  <div class="container-fluid bgimage">
+    <div class="overlay">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <h1>Recent Posts</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row no-gutters post-bar">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
+    </div>
+    {{#each posts as |post|}}
+    <div class="row no-gutters post-bar">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h3 class=""><a href="/post/{{post.id}}"> {{post.post_title}}</a>:</h3>
+        <article data-id="{{post.id}}">
+          <p>{{ post.post_author.username }}</p>
+          <br>
+          <p>{{ format_date post.createdAt }}</p>
+          <p class="post-text">
+            post: <span class="string">'{{ post.blog_content }}'</span>,
+          </p>
+          <p class="post-text">comments: <span class="comments-expand">{...} <i
+                class="fas fa-sort-down expand"></i></span></p>
+          <div class="comments indent hide">
+            <div class="single-comment d-flex">
+              <div class="indent">
+                {{#each post.post_comments as |comment|}}
+                <p class="curly">{</p>
+                {{#if (if_equal ../../userId comment_author.id)}}
+                <div class="d-flex flex-column">
+                  <div class="d-flex justify-content-end">
+                    <i class="far fa-edit comment-edit blue me-2" data-comment="{{comment.id}}"></i>
+                    <i class="far fa-trash-alt comment-delete red me-2" data-comment="{{comment.id}}"></i>
+                  </div>
+                  {{> comment-edit}}
+                </div>
+                {{/if}}
+                <div class="indent">
+                  <p>comment: <span class="string comment-content">'{{ comment.comment_content }}'</span>,</p>
+                  <p>author: <span class="string comment-author" data-author="{{comment_author.id}}">'{{
+                      comment_author.username }}'</span>,</p>
+                  <p class="created">// {{ format_date comment.createdAt }}</p>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        </article>
+        <h4 class="close-post">},</h4>
+      </div>
+    </div>
+    <div class="row no-gutters justify-content-center post-bar">
+      {{#if ../logged_in}}
+      <form class="col-lg-7 col-md-7 col-sm-7 col-xs-7 post-title new-comment">
+        <div class="d-flex">
+          <p>New Comment:</p>
+        </div>
+        <div class="d-flex justify-content-between">
+          <textarea class="form-control comment-body" data-user="{{../userId}}"></textarea>
+          <button type="submit" class="btn btn-outline-success post-btn">Submit</button>
+        </div>
+      </form>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</div>
