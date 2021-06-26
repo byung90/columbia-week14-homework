@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const exphbs = require('express-hanlebars');
+const exphbs = require('express-handlebars');
 const sequelize = require('./config/connection');
 const helpers = require('./utils/helpers');
 
@@ -28,10 +28,10 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use(express.json());
-app.use(express.urleconded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('./controllers'));
 
-sequelize.sync({ force: false }).then() => {
+sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
-}
+});
