@@ -1,0 +1,12 @@
+.post-container {
+  border: 1px solid;
+  margin-bottom: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.new-comment {
+  margin-bottom: 15px;
+}

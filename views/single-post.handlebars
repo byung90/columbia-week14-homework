@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row no-gutters post-container">
+      <h3 class="post-title">{{post_title}}</h3>
+      <div class="post" data-id="{{id}}">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-center">
+            <i class="far fa-edit post-edit blue me-2" data-comment="{{id}}"></i>
+            <i class="far fa-trash-alt post-delete red me-2" data-comment="{{id}}"></i>
+          </div>
+          {{> post-edit}}
+        </div>
+        <p>
+          Author: {{ post_author.username }}
+          <br />
+          Date Posted: {{ format_date createdAt }}
+        </p>
+        <p class="post-text">
+          {{ blog_content }}
+        </p>
+      </div>
+
+      <h3>Comments:</h3>
+      <div class="comments">
+        <div class="single-comment">
+          {{#each post_comments as |comment|}}
+          <p>
+            <span class="bold-text">{{comment_author.id}}:</span> {{ comment.comment_content }}
+            <br>
+            {{ format_date comment.createdAt }}
+          </p>
+          {{/each}}
+        </div>
+      </div>
+      <div class="row no-gutters justify-content-center post-bar">
+        {{> comment-post}}
+      </div>
+    </div>
+  </div>
+</div>

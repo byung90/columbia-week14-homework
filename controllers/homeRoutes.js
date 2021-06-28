@@ -63,10 +63,13 @@ router.get('/signup', async (req, res) => {
 });
 
 router.get('/logout', async (req, res) => {
-  try {
-    res.status(200).json('Logged out!');
-  } catch (err) {
-    res.status(500).json(err);
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.redirect('/');
+      return;
+    });
+  } else {
+    res.status(404).end();
   }
 });
 
